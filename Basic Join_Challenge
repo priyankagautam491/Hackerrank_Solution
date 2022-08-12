@@ -1,0 +1,23 @@
+select h.hacker_id,
+h.name,
+count(c.challenge_id)as c_count
+from hackers h join challenges c on h.hacker_id=c.hacker_id 
+group by h.hacker_id, h.name
+having c_count=
+(select count(c2.challenge_id) as C_max
+from challenges as c2
+group by c2.hacker_id
+order by C_max desc limit 1)
+or c_count in
+
+
+(select distinct c_compare as c_unique
+ from
+(select h2.hacker_id,
+h2.name,
+count(challenge_id) as c_compare
+from hackers h2 join challenges c on c.hacker_id = h2.hacker_id
+group by h2.hacker_id, h2.name)counts
+    group by c_compare
+    having count(c_compare)=1)
+    order by c_count desc, h.hacker_id; 
