@@ -1,0 +1,17 @@
+set @d=0,@p=0,@S=0,@a=0;
+select min(DOCTOR_NAME), MIN(PROFESSOR_NAME), MIN(SINGER NAME), MIN(ACTOR_NAME)
+from
+(select case
+when occupation= 'Doctor' then name end as DOCTOR_NAME,
+when occupation= 'Professor' then name end as Professor_NAME
+ when occupation= 'Singer' then name end as SINGER_NAME
+ when occupation= 'ACTOR' then name end as ACTOR_NAME
+ case
+ when occupation= 'Doctor' then (@d :=@d+1)
+ when occupation= 'Doctor' then (@p :=@p+1)
+ when occupation= 'Doctor' then (@s :=@s+1)
+ when occupation= 'Doctor' then (@a :=@a+1)
+ end as rom_num
+ from occipations
+ order by name) as Temp
+ Group by row_num;
